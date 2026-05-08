@@ -27,6 +27,7 @@ export default function App() {
   const dados = pedro
 
  const Totalinvestido = dados.ListaDeCurso.map(curso => curso);
+ console.log(Totalinvestido)
   const soma = Totalinvestido.reduce((total, ListaDeCurso) => {
     const valorLimpo = ListaDeCurso.valor
       .replace("R$", " ")

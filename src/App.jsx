@@ -1,57 +1,60 @@
+import React from "react";
+
 export default function App() {
 
-  const ana = {
-    nome: "ana",
-    idade: 20,
-    ListaDeCurso: [
-      { nome: "desenvolvedor", valor: "R$ 2000" },
-      { nome: "cozinheiro", valor: "R$ 4000" },
-      { nome: "massageador", valor: "R$ 1000" },
-      { nome: "atirador", valor: "R$ 8000" }
-    ],
-    StatusDoCurso: true
-
-  }
-  const pedro = {
-    nome: "pedro",
-    idade: 22,
-    ListaDeCurso: [
-      { nome: "Assasino", valor: "R$ 6000" },
-      { nome: "cozinheiro", valor: "R$ 4000" },
-      { nome: "massageador", valor: "R$ 1000" },
-      { nome: "atirador", valor: "R$ 8000" }
-    ],
-    StatusDoCurso: true
-
-  }
-  const dados = pedro
-
- const Totalinvestido = dados.ListaDeCurso.map(curso => curso);
- console.log(Totalinvestido)
-  const soma = Totalinvestido.reduce((total, ListaDeCurso) => {
-    const valorLimpo = ListaDeCurso.valor
-      .replace("R$", " ")
-      .replace(",", ".")
-      .trim();
-
-    return total + Number(valorLimpo);
-  }, 0);
+  const produtos = [
+    {
+      id: 1,
+      nome: 'Smartphone',
+      preco: 'R$ 2000',
+      cores: ['#29d8d5', '#252a34', '#fc3766'],
+    },
+    {
+      id: 2,
+      nome: 'Notebook',
+      preco: 'R$ 3000',
+      cores: ['#ffd045', '#d4394b', '#f37c59'],
+    },
+    {
+      id: 3,
+      nome: 'Tablet',
+      preco: 'R$ 1500',
+      cores: ['#365069', '#47c1c8', '#f95786'],
+    },
+  ];
 
   return (
-    <>
-      <p>Nome: {dados.nome}</p>
-      <p>Idade: {dados.idade}</p>
-      <p>Status da matricula: {dados.StatusDoCurso ? <span style={{ color: "green" }}>ATIVA</span> : <span style={{ color: "red" }}>INATIVA</span>}</p>
-      <p>
-        Total Investido: R$ {soma}
-      </p>
-      <p>{soma > 2500 && <span>Parabens você é um aluno premium</span>}</p>
-      <ul>
-        {dados.ListaDeCurso.map(curso => (
-          <li key={curso.nome}>{curso.nome}</li>
-        ))}
-      </ul>
-    </>
+    <ul>
+      {produtos
+        .filter(produto => {
+          const valor = Number(
+            produto.preco.replace("R$", "").trim()
+          );
+          return valor > 1500;
+        })
 
-  )
+        .map(produto => {
+          const valor = produto.preco.replace("R$", "").trim();
+
+          return (
+            <li key={produto.id}>
+              <h1>{produto.nome}</h1>
+              <span>Preço: R$ {valor}</span>
+
+              {produto.cores.map(cor => (
+                <p
+                  key={cor}
+                  style={{
+                    backgroundColor: cor,
+                    color: "white"
+                  }}
+                >
+                  {cor}
+                </p>
+              ))}
+            </li>
+          );
+        })}
+    </ul>
+  );
 }
